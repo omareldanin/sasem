@@ -5,12 +5,13 @@ import { UsersController } from './users.controller';
 import { User } from './users.entity';
 import { JwtModule } from '@nestjs/jwt';
 import { Member } from '../member/member.entity';
+import { env } from 'src/config';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([User, Member]),
     JwtModule.register({
-      secret: process.env.JWT_SECRET || 'secret123',
+      secret: env.ACCESS_TOKEN_SECRET || 'secret123',
       signOptions: { expiresIn: '7d' },
     }),
   ],

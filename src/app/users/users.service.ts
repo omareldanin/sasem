@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Like } from 'typeorm';
 import * as bcrypt from 'bcrypt';
@@ -89,21 +93,39 @@ export class UsersService {
 
     if (!user) throw new NotFoundException('User not found');
 
+    // ---------- CHECK EMAIL ----------
+    if (dto.email && dto.email !== user.email) {
+      const emailExists = await this.usersRepo.findOne({
+        where: { email: dto.email },
+      });
+
+      if (emailExists) {
+        throw new BadRequestException('Email already in use');
+      }
+    }
+
+    // ---------- CHECK PHONE ----------
+    if (dto.phone && dto.phone !== user.phone) {
+      const phoneExists = await this.usersRepo.findOne({
+        where: { phone: dto.phone },
+      });
+
+      if (phoneExists) {
+        throw new BadRequestException('Phone already in use');
+      }
+    }
+
     // -------- UPDATE USER --------
     if (dto.name) user.name = dto.name;
     if (dto.phone) user.phone = dto.phone;
+    if (dto.email) user.email = dto.email;
     if (dto.avatar) user.avatar = dto.avatar;
 
     await this.usersRepo.save(user);
 
     // -------- UPDATE MEMBER (if exists) --------
     if (user.member) {
-      Object.assign(user.member, {
-        scfhs: dto.membershipNumber,
-        facebook: dto.facebook,
-        x: dto.x,
-      });
-
+      Object.assign(user.member, dto);
       await this.memberRepo.save(user.member);
     }
 

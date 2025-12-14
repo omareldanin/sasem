@@ -25,9 +25,6 @@ export class CreateMemberDto {
   @IsString()
   title: string;
 
-  @IsString()
-  profession: string;
-
   @IsEnum(Gender)
   gender: Gender;
 
@@ -38,7 +35,10 @@ export class CreateMemberDto {
   city: string;
 
   @IsString()
-  nationality: string;
+  specialty: string;
+
+  @IsString()
+  jopTitle: string;
 
   @IsOptional()
   @IsString()

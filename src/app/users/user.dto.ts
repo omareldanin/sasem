@@ -37,6 +37,10 @@ export class UpdateProfileDto {
 
   @IsOptional()
   @IsString()
+  email?: string;
+
+  @IsOptional()
+  @IsString()
   avatar?: string;
 
   @IsOptional()
@@ -49,7 +53,15 @@ export class UpdateProfileDto {
 
   @IsOptional()
   @IsString()
-  nationality?: string;
+  specialty?: string;
+
+  @IsOptional()
+  @IsString()
+  jopTitle?: string;
+
+  @IsOptional()
+  @IsString()
+  title?: string;
 
   @IsOptional()
   @IsString()

@@ -20,9 +20,6 @@ export class Member {
   @Column()
   title: string;
 
-  @Column()
-  profession: string;
-
   @Column({
     type: 'enum',
     enum: Gender,
@@ -32,11 +29,14 @@ export class Member {
   @Column()
   country: string;
 
-  @Column()
+  @Column({ nullable: true })
   city: string;
 
-  @Column()
-  nationality: string;
+  @Column({ nullable: true })
+  specialty: string;
+
+  @Column({ nullable: true })
+  jopTitle: string;
 
   // Social media links
   @Column({ nullable: true })

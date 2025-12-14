@@ -8,6 +8,7 @@ import { PasswordResetToken } from './password-reset.entity';
 import { CommunicationLog } from '../logs/communication-log.entity';
 import { MailService } from '../../lib/mail.service';
 import { SmsService } from '../../lib/sms.service';
+import { env } from 'src/config';
 
 @Module({
   imports: [
@@ -17,7 +18,7 @@ import { SmsService } from '../../lib/sms.service';
       CommunicationLog, // 👈 REQUIRED
     ]),
     JwtModule.register({
-      secret: process.env.JWT_SECRET || 'secret123',
+      secret: env.ACCESS_TOKEN_SECRET || 'secret123',
       signOptions: { expiresIn: '7d' },
     }),
   ],

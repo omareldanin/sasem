@@ -23,7 +23,7 @@ export class MemberController {
 
   @UseGuards(JwtAuthGuard)
   @UploadImageInterceptor('avatar')
-  @Post()
+  @Post('create')
   create(
     @Body() dto: CreateMemberDto,
     @UploadedFile() file: Express.Multer.File,
@@ -36,7 +36,7 @@ export class MemberController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get()
+  @Get('getAll')
   getAll(@Query() filters: any) {
     return this.service.getAll(filters);
   }

@@ -7,12 +7,13 @@ import { User } from '../users/users.entity';
 import { NotificationsService } from './notification.service';
 import { NotificationsController } from './notification.controller';
 import { JwtModule } from '@nestjs/jwt';
+import { env } from 'src/config';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Notification, User]),
     JwtModule.register({
-      secret: process.env.JWT_SECRET || 'secret123',
+      secret: env.ACCESS_TOKEN_SECRET || 'secret123',
       signOptions: { expiresIn: '7d' },
     }),
   ],
