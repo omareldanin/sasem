@@ -160,12 +160,9 @@ export class MemberService {
     if (dto.phone) user.phone = dto.phone;
     if (dto.role) user.role = dto.role;
     if (dto.password)
-      ((user.password = await bcrypt.hash(
-        dto.password + env.PASSWORD_SALT,
-        12,
-      )),
-        await this.userRepo.save(user));
+      user.password = await bcrypt.hash(dto.password + env.PASSWORD_SALT, 12);
 
+    await this.userRepo.save(user);
     // Update member data
     Object.assign(member, dto);
 
