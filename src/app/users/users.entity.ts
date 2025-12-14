@@ -8,6 +8,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { Member } from '../member/member.entity';
+import { Admin } from '../admin/admin.entity';
 
 export enum UserRole {
   ADMIN = 'admin',
@@ -57,4 +58,7 @@ export class User {
 
   @OneToOne(() => Member, (member) => member.user, { nullable: true })
   member?: Member;
+
+  @OneToOne(() => Admin, (admin) => admin.user)
+  admin?: Admin;
 }

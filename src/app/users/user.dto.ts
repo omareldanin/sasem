@@ -1,4 +1,10 @@
-import { IsEmail, IsEnum, IsOptional, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsEmail,
+  IsEnum,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import { UserRole } from './users.entity';
 import { PartialType } from '@nestjs/mapped-types';
 import { Gender } from '../member/member.entity';
@@ -21,6 +27,13 @@ export class CreateUserDto {
   avatar: string;
 
   @IsOptional()
+  @IsString()
+  jobTitle: string;
+
+  @IsOptional()
+  @IsBoolean()
+  isActive: boolean;
+
   @IsEnum(UserRole)
   role?: UserRole;
 }

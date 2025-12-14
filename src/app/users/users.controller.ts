@@ -28,17 +28,23 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   // POST /users
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @UploadImageInterceptor('avatar')
   @Post('create')
-  create(@Body() dto: CreateUserDto) {
+  create(
+    @Body() dto: CreateUserDto,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    if (file) {
+      dto.avatar = 'uploads/' + file.filename; // or save full path if you want
+    }
     return this.usersService.create(dto);
   }
 
   // GET /users?name=...&email=...
   @UseGuards(JwtAuthGuard)
   @Get('getAll')
-  getAll(@Query() filters: UserFiltersDto) {
+  getAll(@Query() filters: any) {
     return this.usersService.getAll(filters);
   }
 
@@ -50,7 +56,7 @@ export class UsersController {
   }
 
   // GET /users/:id
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Get(':id')
   getOne(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.getOne(id);
@@ -73,14 +79,22 @@ export class UsersController {
   }
 
   // PATCH /users/:id
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @UploadImageInterceptor('avatar')
   @Patch(':id')
-  updateOne(@Param('id', ParseIntPipe) id: number, @Body() dto: UpdateUserDto) {
+  updateOne(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: UpdateUserDto,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    if (file) {
+      dto.avatar = 'uploads/' + file.filename; // or save full path if you want
+    }
     return this.usersService.updateOne(id, dto);
   }
+
   // DELETE /users/:id
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Delete(':id')
   deleteOne(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.deleteOne(id);
