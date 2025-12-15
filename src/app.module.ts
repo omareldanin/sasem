@@ -9,6 +9,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { MemberModule } from './app/member/member.module';
 import { NotificationsModule } from './app/notification/notification.module';
+import { EventModule } from './app/event/event.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { NotificationsModule } from './app/notification/notification.module';
     MemberModule,
     AuthModule,
     NotificationsModule,
+    EventModule,
   ],
   controllers: [AppController],
   providers: [AppService],

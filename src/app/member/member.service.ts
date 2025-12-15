@@ -41,6 +41,7 @@ export class MemberService {
 
     // Create member linked to user
     const member = this.memberRepo.create({
+      id: user.id,
       title: dto.title,
       gender: dto.gender,
       country: dto.country,

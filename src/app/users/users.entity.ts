@@ -5,10 +5,12 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToOne,
-  JoinColumn,
+  OneToMany,
+  ManyToMany,
 } from 'typeorm';
 import { Member } from '../member/member.entity';
 import { Admin } from '../admin/admin.entity';
+import { Event } from '../event/event.entity';
 
 export enum UserRole {
   ADMIN = 'admin',
@@ -61,4 +63,10 @@ export class User {
 
   @OneToOne(() => Admin, (admin) => admin.user)
   admin?: Admin;
+
+  @OneToMany(() => Event, (event) => event.createdBy)
+  createdEvents: Event[];
+
+  @ManyToMany(() => Event, (event) => event.users)
+  events: Event[];
 }

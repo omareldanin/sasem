@@ -4,6 +4,7 @@ import {
   Column,
   OneToOne,
   JoinColumn,
+  PrimaryColumn,
 } from 'typeorm';
 import { User } from '../users/users.entity';
 
@@ -14,7 +15,7 @@ export enum Gender {
 
 @Entity()
 export class Member {
-  @PrimaryGeneratedColumn()
+  @PrimaryColumn()
   id: number;
 
   @Column()
@@ -48,7 +49,7 @@ export class Member {
   @Column({ nullable: true })
   x: string; // twitter
 
-  @OneToOne(() => User)
-  @JoinColumn() // Owner of the relationship
+  @OneToOne(() => User, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'id' })
   user: User;
 }
