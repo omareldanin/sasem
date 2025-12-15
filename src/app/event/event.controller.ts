@@ -10,18 +10,29 @@ import {
   UseGuards,
   Req,
   ParseIntPipe,
+  UploadedFile,
 } from '@nestjs/common';
 import { EventService } from './event.service';
 import { JwtAuthGuard } from 'src/middlewares/jwt-auth.guard';
 import { CreateEventDto, UpdateEventDto } from './event.dto';
+import { UploadImageInterceptor } from 'src/middlewares/file-upload.interceptor';
 
 @Controller('events')
 export class EventController {
   constructor(private readonly eventService: EventService) {}
 
   @UseGuards(JwtAuthGuard)
+  @UploadImageInterceptor('cover')
   @Post('create')
-  create(@Body() dto: CreateEventDto, @Req() req: any) {
+  create(
+    @Body() dto: CreateEventDto,
+    @UploadedFile() file: Express.Multer.File,
+    @Req() req: any,
+  ) {
+    if (file) {
+      dto.cover = 'uploads/' + file.filename; // or save full path if you want
+    }
+
     return this.eventService.create(dto, req.user);
   }
 

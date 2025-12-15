@@ -28,7 +28,7 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   // POST /users
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @UploadImageInterceptor('avatar')
   @Post('create')
   create(

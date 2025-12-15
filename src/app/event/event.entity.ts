@@ -24,7 +24,6 @@ import {
   ManyToOne,
   ManyToMany,
   JoinTable,
-  Index,
 } from 'typeorm';
 import { User } from '../users/users.entity';
 
@@ -57,14 +56,8 @@ export class Event {
   @Column({ type: 'timestamp' })
   toDate: Date;
 
-  // -------- Type --------
-  @Index()
-  @Column({
-    type: 'enum',
-    enum: EventType,
-  })
-  type: EventType;
-
+  @Column({ nullable: true })
+  cover: string;
   // -------- Creator --------
   @ManyToOne(() => User, (user) => user.createdEvents, {
     onDelete: 'CASCADE',

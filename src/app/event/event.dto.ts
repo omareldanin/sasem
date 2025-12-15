@@ -5,16 +5,23 @@ import {
   IsOptional,
   IsInt,
   IsArray,
+  IsString,
 } from 'class-validator';
 import { EventType } from './event.entity';
 import { PartialType } from '@nestjs/mapped-types';
 
 export class CreateEventDto {
-  @IsObject()
-  name: { ar: string; en: string };
+  @IsString()
+  arName: string;
 
-  @IsObject()
-  description: { ar: string; en: string };
+  @IsString()
+  enName: string;
+
+  @IsString()
+  arDescription: string;
+
+  @IsString()
+  enDescription: string;
 
   @IsDateString()
   fromDate: Date;
@@ -22,8 +29,9 @@ export class CreateEventDto {
   @IsDateString()
   toDate: Date;
 
-  @IsEnum(EventType)
-  type: EventType;
+  @IsOptional()
+  @IsString()
+  cover: string;
 
   @IsOptional()
   @IsArray()

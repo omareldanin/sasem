@@ -35,7 +35,7 @@ export class MemberController {
     return this.service.create(dto);
   }
 
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Get('getAll')
   getAll(@Query() filters: any) {
     return this.service.getAll(filters);

@@ -43,7 +43,17 @@ export class EventService {
     }
 
     const event = this.eventRepo.create({
-      ...dto,
+      name: {
+        ar: dto.arName,
+        en: dto.enName,
+      },
+      description: {
+        ar: dto.arDescription,
+        en: dto.enDescription,
+      },
+      cover: dto.cover,
+      fromDate: new Date(dto.fromDate),
+      toDate: new Date(dto.toDate),
       createdBy: creator,
       users,
     });
@@ -89,7 +99,7 @@ export class EventService {
       'event.id',
       'event.fromDate',
       'event.toDate',
-      'event.type',
+      'event.cover',
       'event.createdAt',
       'user.id',
       'user.name',
@@ -141,7 +151,7 @@ export class EventService {
       description: hasLang ? row.event_description_lang : row.event_description,
       fromDate: row.event_fromDate,
       toDate: row.event_toDate,
-      type: row.event_type,
+      cover: row.event_cover,
       createdAt: row.event_createdAt,
       createdBy: {
         id: row.user_id,
@@ -172,7 +182,7 @@ export class EventService {
       'event.id',
       'event.fromDate',
       'event.toDate',
-      'event.type',
+      'event.cover',
       'event.createdAt',
       'user.id',
       'user.name',
@@ -205,7 +215,7 @@ export class EventService {
       description: hasLang ? row.event_description_lang : row.event_description,
       fromDate: row.event_fromDate,
       toDate: row.event_toDate,
-      type: row.event_type,
+      cover: row.event_cover,
       createdAt: row.event_createdAt,
       createdBy: {
         id: row.user_id,
@@ -314,7 +324,19 @@ export class EventService {
       event.users = users;
     }
 
-    Object.assign(event, dto);
+    Object.assign(event, {
+      name: {
+        ar: dto.arName,
+        en: dto.enName,
+      },
+      description: {
+        ar: dto.arDescription,
+        en: dto.enDescription,
+      },
+      cover: dto.cover ? dto.cover : undefined,
+      fromDate: dto.fromDate ? new Date(dto.fromDate) : undefined,
+      toDate: dto.toDate ? new Date(dto.toDate) : undefined,
+    });
     const savedEvent = await this.eventRepo.save(event);
 
     // remove sensitive fields
