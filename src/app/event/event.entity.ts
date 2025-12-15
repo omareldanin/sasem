@@ -24,8 +24,10 @@ import {
   ManyToOne,
   ManyToMany,
   JoinTable,
+  OneToMany,
 } from 'typeorm';
 import { User } from '../users/users.entity';
+import { Sponsor } from '../sponsor/sponsor.entity';
 
 @Entity()
 export class Event {
@@ -72,6 +74,10 @@ export class Event {
     inverseJoinColumn: { name: 'userId', referencedColumnName: 'id' },
   })
   users: User[];
+
+  // -------- Sponsors --------
+  @OneToMany(() => Sponsor, (sponsor) => sponsor.event)
+  sponsors: Sponsor[];
 
   // -------- Timestamp --------
   @CreateDateColumn()

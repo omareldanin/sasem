@@ -10,6 +10,7 @@ import { join } from 'path';
 import { MemberModule } from './app/member/member.module';
 import { NotificationsModule } from './app/notification/notification.module';
 import { EventModule } from './app/event/event.module';
+import { SponsorModule } from './app/sponsor/sponsor.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { EventModule } from './app/event/event.module';
     AuthModule,
     NotificationsModule,
     EventModule,
+    SponsorModule,
   ],
   controllers: [AppController],
   providers: [AppService],
