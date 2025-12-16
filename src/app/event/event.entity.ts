@@ -28,6 +28,7 @@ import {
 } from 'typeorm';
 import { User } from '../users/users.entity';
 import { Sponsor } from '../sponsor/sponsor.entity';
+import { FileEntity } from '../files/file.entity';
 
 @Entity()
 export class Event {
@@ -78,6 +79,9 @@ export class Event {
   // -------- Sponsors --------
   @OneToMany(() => Sponsor, (sponsor) => sponsor.event)
   sponsors: Sponsor[];
+
+  @OneToMany(() => FileEntity, (file) => file.event)
+  files: FileEntity[];
 
   // -------- Timestamp --------
   @CreateDateColumn()

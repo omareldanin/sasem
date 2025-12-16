@@ -11,6 +11,7 @@ import { MemberModule } from './app/member/member.module';
 import { NotificationsModule } from './app/notification/notification.module';
 import { EventModule } from './app/event/event.module';
 import { SponsorModule } from './app/sponsor/sponsor.module';
+import { FilesModule } from './app/files/files.module';
 
 @Module({
   imports: [
@@ -25,8 +26,8 @@ import { SponsorModule } from './app/sponsor/sponsor.module';
       synchronize: false,
     }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'uploads'),
-      serveRoot: '/uploads', // URL prefix
+      rootPath: join(process.cwd(), 'uploads'),
+      serveRoot: '/uploads',
     }),
     UsersModule,
     MemberModule,
@@ -34,6 +35,7 @@ import { SponsorModule } from './app/sponsor/sponsor.module';
     NotificationsModule,
     EventModule,
     SponsorModule,
+    FilesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
