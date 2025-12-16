@@ -12,6 +12,7 @@ import { NotificationsModule } from './app/notification/notification.module';
 import { EventModule } from './app/event/event.module';
 import { SponsorModule } from './app/sponsor/sponsor.module';
 import { FilesModule } from './app/files/files.module';
+import { BlogModule } from './app/blogs/blogs.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { FilesModule } from './app/files/files.module';
     EventModule,
     SponsorModule,
     FilesModule,
+    BlogModule,
   ],
   controllers: [AppController],
   providers: [AppService],

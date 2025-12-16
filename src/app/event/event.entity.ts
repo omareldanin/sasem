@@ -29,6 +29,7 @@ import {
 import { User } from '../users/users.entity';
 import { Sponsor } from '../sponsor/sponsor.entity';
 import { FileEntity } from '../files/file.entity';
+import { Blog } from '../blogs/blog.entity';
 
 @Entity()
 export class Event {
@@ -82,6 +83,9 @@ export class Event {
 
   @OneToMany(() => FileEntity, (file) => file.event)
   files: FileEntity[];
+
+  @OneToMany(() => Blog, (blog) => blog.event)
+  blogs: Blog[];
 
   // -------- Timestamp --------
   @CreateDateColumn()
