@@ -25,11 +25,13 @@ import {
   ManyToMany,
   JoinTable,
   OneToMany,
+  OneToOne,
 } from 'typeorm';
 import { User } from '../users/users.entity';
 import { Sponsor } from '../sponsor/sponsor.entity';
 import { FileEntity } from '../files/file.entity';
 import { Blog } from '../blogs/blog.entity';
+import { Contact } from '../contact/contact.entity';
 
 @Entity()
 export class Event {
@@ -87,6 +89,8 @@ export class Event {
   @OneToMany(() => Blog, (blog) => blog.event)
   blogs: Blog[];
 
+  @OneToOne(() => Contact, (contact) => contact.event)
+  contact: Contact;
   // -------- Timestamp --------
   @CreateDateColumn()
   createdAt: Date;

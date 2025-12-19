@@ -121,10 +121,16 @@ export class BlogService {
 
     const query = this.blogRepo
       .createQueryBuilder('blog')
+      .leftJoin('blog.event', 'event')
       .where('blog.id = :id', { id });
 
     // ---------- SELECT ----------
-    query.select(['blog.id', 'blog.date', 'blog.createdAt']);
+    query.select([
+      'blog.id',
+      'blog.date',
+      'blog.createdAt',
+      'event.id AS eventId',
+    ]);
 
     if (hasLang) {
       query.addSelect(
@@ -162,6 +168,7 @@ export class BlogService {
       id: row.blog_id,
       date: row.blog_date,
       createdAt: row.blog_createdAt,
+      eventId: row.eventId,
       name: hasLang ? row.name : row.blog_name,
       title: hasLang ? row.title : row.blog_title,
       address: hasLang ? row.address : row.blog_address,

@@ -13,6 +13,8 @@ import { EventModule } from './app/event/event.module';
 import { SponsorModule } from './app/sponsor/sponsor.module';
 import { FilesModule } from './app/files/files.module';
 import { BlogModule } from './app/blogs/blogs.module';
+import { ContactController } from './app/contact/contact.controller';
+import { ContactModule } from './app/contact/contact.module';
 
 @Module({
   imports: [
@@ -38,6 +40,7 @@ import { BlogModule } from './app/blogs/blogs.module';
     SponsorModule,
     FilesModule,
     BlogModule,
+    ContactModule,
   ],
   controllers: [AppController],
   providers: [AppService],
