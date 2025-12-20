@@ -34,7 +34,7 @@ export class SponsorsController {
     return this.sponsorsService.create(dto);
   }
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Get('getAll')
   findAll(@Query() query: any) {
     return this.sponsorsService.findAll(query);

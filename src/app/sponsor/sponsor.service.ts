@@ -39,6 +39,7 @@ export class SponsorsService {
     size?: number;
     type?: SponsorType;
     eventId?: number;
+    isFeatured?: boolean | string;
   }) {
     const page = Number(filters.page) || 1;
     const limit = Number(filters.size) || 10;
@@ -61,6 +62,15 @@ export class SponsorsService {
     if (filters.eventId) {
       query.andWhere('event.id = :eventId', {
         eventId: filters.eventId,
+      });
+    }
+    if (filters.isFeatured !== undefined) {
+      const isFeatured =
+        filters.isFeatured === true || filters.isFeatured === 'true'
+          ? true
+          : false;
+      query.andWhere('sponsor.isFeatured = :isFeatured', {
+        isFeatured,
       });
     }
 
