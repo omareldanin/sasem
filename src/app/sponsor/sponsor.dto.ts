@@ -1,5 +1,6 @@
 // sponsors/dto/create-sponsor.dto.ts
 import {
+  IsBoolean,
   IsEnum,
   IsNotEmpty,
   IsNumber,
@@ -7,6 +8,7 @@ import {
   IsString,
 } from 'class-validator';
 import { SponsorType } from './sponsor.entity';
+import { Transform } from 'class-transformer';
 
 export class CreateSponsorDto {
   @IsEnum(SponsorType)
@@ -18,6 +20,10 @@ export class CreateSponsorDto {
 
   @IsNumber()
   eventId: number;
+
+  @IsOptional()
+  @IsString()
+  isFeatured: string;
 }
 
 export class UpdateSponsorDto {
@@ -32,4 +38,8 @@ export class UpdateSponsorDto {
   @IsOptional()
   @IsNumber()
   eventId: number;
+
+  @IsOptional()
+  @IsString()
+  isFeatured: string;
 }

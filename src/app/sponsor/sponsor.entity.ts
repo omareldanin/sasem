@@ -30,6 +30,8 @@ export class Sponsor {
   @Column()
   image: string;
 
+  @Column({ default: false })
+  isFeatured: Boolean;
   // -------- Relation --------
   @ManyToOne(() => Event, (event) => event.sponsors, {
     onDelete: 'CASCADE',

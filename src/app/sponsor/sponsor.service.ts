@@ -26,6 +26,7 @@ export class SponsorsService {
     const sponsor = this.sponsorRepo.create({
       type: dto.type,
       image: dto.image,
+      isFeatured: dto.isFeatured === 'true' ? true : false,
       event,
     });
 
@@ -83,7 +84,15 @@ export class SponsorsService {
 
     if (!sponsor) throw new NotFoundException('Sponsor not found');
 
-    Object.assign(sponsor, dto);
+    Object.assign(sponsor, {
+      ...dto,
+      isFeatured:
+        dto.isFeatured === 'true'
+          ? true
+          : dto.isFeatured === 'false'
+            ? false
+            : sponsor.isFeatured,
+    });
     return this.sponsorRepo.save(sponsor);
   }
 
